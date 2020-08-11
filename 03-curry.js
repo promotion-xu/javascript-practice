@@ -13,9 +13,30 @@
 //   };
 // }
 
-const checkAge = min => age => age >= min;
+// const checkAge = min => age => age >= min;
 
-const checkAge18 = checkAge(18);
-console.log(checkAge18(20));
-console.log(checkAge18(24));
-console.log(checkAge18(26));
+// const checkAge18 = checkAge(18);
+// console.log(checkAge18(20));
+// console.log(checkAge18(24));
+// console.log(checkAge18(26));
+
+const _ = require("lodash");
+
+const match = _.curry(function(reg, str) {
+  return str.match(reg);
+});
+
+const hasSpace = match(/\s+/g);
+const hasNumber = match(/\d+/g);
+
+// console.log(hasSpace("helloworld"));
+// console.log(hasNumber("sad"));
+
+const filter = _.curry(function(func, array) {
+  return array.filter(func);
+});
+
+// console.log(filter(hasSpace, ["helo xuzhne", "asd"]));
+
+const findSpace = filter(hasSpace);
+console.log(findSpace(["helo xuzhne", "asd"]));
