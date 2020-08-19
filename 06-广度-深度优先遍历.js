@@ -16,13 +16,15 @@ const tree = [
 // 1. 深度优先遍历
 const depth = (tree) => {
   let nodes = [];
-  const length = tree.length;
-  tree.map((item) => {
-    console.log(item);
-    if (item.children) {
-      return depth(item.children);
-    }
-  });
+  fla(tree);
+  function fla(arr) {
+    arr.forEach((v) => {
+      nodes.push(v.name);
+      if (v.children) {
+        fla(v.children);
+      }
+    });
+  }
   return nodes;
 };
 
@@ -30,3 +32,24 @@ const arr = depth(tree);
 console.log("arr", arr);
 
 // 2. 广度优先遍历
+const breadth = (node) => {
+  let nodes = [];
+  let stack = [];
+  if (node) {
+    stack.push(node);
+    while (stack.length) {
+      let item = stack.shift();
+      let children = item.children;
+      nodes.push(item);
+      // 队列，先进先出
+      // nodes = [] stack = [parent]
+      // nodes = [parent] stack = [child1,child2,child3]
+      // nodes = [parent, child1] stack = [child2,child3,child1-1,child1-2]
+      // nodes = [parent,child1,child2]
+      for (let i = 0; i < children.length; i++) {
+        stack.push(children[i]);
+      }
+    }
+  }
+  return nodes;
+};
