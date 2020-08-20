@@ -21,6 +21,6 @@ const an = ["Hello", "an"];
 
 // 2
 // instanceof 通过判断对象的原型链中是不是能找到类型的prototype
-console.log([] instanceof Array);
+// console.log([] instanceof Array);
 
-console.log([] instanceof Object);
+// console.log([] instanceof Object);
