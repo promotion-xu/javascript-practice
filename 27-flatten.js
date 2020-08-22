@@ -8,6 +8,11 @@ const arr = [
     name: "2",
     age: "2",
     children: [{ name: "2-1", age: "2-1" }, { name: "2-2", age: "2-2" }]
+  },
+  {
+    name: "3",
+    age: "3",
+    children: [{ name: "3-1", age: "3-1" }, { name: "3-2", age: "3-2" }]
   }
 ];
 
