@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input class="input" type="text" />
+
+    <script>
+      function throttle(fn, delay) {
+        let timer = null;
+        let last = 0; // 记录上一次时间
+        return function (args) {
+          let now = Date.now();
+          if (now - last > delay) {
+            // 对比当前时间减去上次时间  与  间隔时间 相比， 大于则要执行一次回调
+            fn.call(this, args);
+            last = now;
+          }
+        };
+      }
+      function ajax(content) {
+        console.log("ajax" + content);
+      }
+
+      const test = throttle(ajax, 1200);
+
+      // 节流-- n秒内不管触发多少次，只执行一次
+      const ipt = document.querySelector(".input");
+      ipt.addEventListener("keyup", (e) => {
+        test(e.target.value);
+      });
+    </script>
+  </body>
+</html>
