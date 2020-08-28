@@ -15,7 +15,7 @@ class LazyManClass {
     await (function (t) {
       setTimeout(function () {
         console.log(`等待了${t}秒`);
-        // _this.next();
+        _this.next();
       }, t * 1000);
     })(time);
     // this.taskList.push(fn);
