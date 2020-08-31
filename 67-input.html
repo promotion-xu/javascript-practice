@@ -35,6 +35,12 @@
       ipt.addEventListener("keyup", (e) => {
         test(e.target.value);
       });
+
+      //       1.compositionstart，键盘按下的时候触发，此时可能你刚刚按下一个n，但是这个并不是英文输入法的n。
+
+      // 2.compositionupdate，每次输入中文输入法的拼音就会触发，并且这个事件触发会紧接着触发一个input事件。
+
+      // 3.compositionend，输入框的拼音变成中文的时候触发，或者结束中文输入也会触发(在中文输入的时候，按esc或者失去焦点)
     </script>
   </body>
 </html>
