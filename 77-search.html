@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input class="search" type="text" />
+    <ul class="ul"></ul>
+
+    <script>
+      // 实现模糊搜索结果的关键词高亮显示
+      const list = [
+        "上海",
+        "上海市",
+        "上海海昌海洋公园",
+        "上海市徐汇区",
+        "上海自来水来自海上",
+      ];
+
+      const search = document.querySelector(".search");
+      const ul = document.querySelector(".ul");
+      search.addEventListener("keyup", (e) => {
+        setList(e.target.value);
+      });
+      function setList(value) {
+        ul.innerHTML = "";
+        if (!value) {
+          ul.innerHTML = "";
+          return;
+        }
+        list.forEach((item, index) => {
+          if (item.indexOf(value) !== -1) {
+            const li = document.createElement("li");
+            const innerHTML = item.replace(
+              value,
+              `<span style="color:red;">${value}</span>`
+            );
+            li.innerHTML = innerHTML;
+            li.setAttribute("key", index);
+            ul.appendChild(li);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
