@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "path": "../../mitojs"
+    },
+    {
+      "path": ".."
+    },
+    {
+      "path": "../../formatjs"
+    },
+    {
+      "path": "../../../d-meeting-fe"
+    }
+  ],
+  "settings": {}
+}
