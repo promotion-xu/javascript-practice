@@ -72,3 +72,56 @@
 // arrowFn1.call({ a: 2 })     // <- window
 // arrowFn2.apply({ a: 2 })    // <- { a: 1 }
 // arrowFn2.bind({ a: 2 })()   // <- { a: 1 }
+
+// 2. 闭包(closure)实现原理，应用
+// 定义：内部函数对外部存在引用
+// 可以缓存局部变量，存在内存中
+// function getList() {
+//   let a = 1;
+//   return function () {
+//     a += 1;
+//     console.log(a);
+//   };
+// }
+
+// const g = getList();
+// g();
+// g();
+// g();
+
+// const j = getList();
+// j();
+// j();
+
+// var name = "The Window";
+
+// var object = {
+//   name: "My Object",
+
+//   getNameFunc: function () {
+//     return function () {
+//       return this.name;
+//     };
+//   },
+// };
+
+// // function () {
+// //     return this.name
+// // }
+
+// alert(object.getNameFunc()()); // The Window
+
+var name = "The Window";
+
+var object = {
+  name: "My Object",
+
+  getNameFunc: function () {
+    var that = this;
+    return function () {
+      return that.name;
+    };
+  },
+};
+
+console.log(object.getNameFunc()()); // My Object
