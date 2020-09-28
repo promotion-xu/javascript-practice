@@ -25,6 +25,17 @@
 //   strictFn() // <- undefined
 
 // (2)函数作为对象方法调用
+// var myName = 'global'
+// const obj = {
+//   myName: 'obj',
+//   getMyName() {
+//     console.log(this.myName)
+//   }
+// }
+
+// obj.getMyName() // <- 'obj'
+
+// (3)函数作为构造函数调用
 // function Person(name) {
 //     this.name = name
 //     console.log(this)
@@ -33,8 +44,7 @@
 //   const person = new Person('Logan')
 // <- Person {name: "Logan"}
 
-// (3)函数作为构造函数调用
-
+// (4)函数通过call、apply、bind间接调用
 // var name = 'global'
 // function logName() {
 //   console.log(this.name)
@@ -45,7 +55,20 @@
 // logName.apply({ name: 'apply' }) // <- 'apply'
 // // 注意bind返回一个函数，而不是直接调用
 // logName.bind({ name: 'bind' })() // <- 'bind'
-
-// (4)函数通过call、apply、bind间接调用
-
 // (5)箭头函数的调用
+// function genArrowFn() {
+//     return () => {
+//         console.log(this)
+//     }
+// }
+
+// const arrowFn1 = genArrowFn()
+// arrowFn1()                  // <- window
+
+// const arrowFn2 = genArrowFn.call({ a: 1 })
+// arrowFn2()                  // <- { a: 1 }
+
+// // `call`、`apply`、`bind`无法改变箭头函数内this的指向，仍然在作用域链上寻找
+// arrowFn1.call({ a: 2 })     // <- window
+// arrowFn2.apply({ a: 2 })    // <- { a: 1 }
+// arrowFn2.bind({ a: 2 })()   // <- { a: 1 }
