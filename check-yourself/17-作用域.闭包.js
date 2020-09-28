@@ -111,17 +111,19 @@
 
 // alert(object.getNameFunc()()); // The Window
 
-var name = "The Window";
+// var name = "The Window";
 
-var object = {
-  name: "My Object",
+// var object = {
+//   name: "My Object",
 
-  getNameFunc: function () {
-    var that = this;
-    return function () {
-      return that.name;
-    };
-  },
-};
+//   getNameFunc: function () {
+//     var that = this;
+//     return function () {
+//       return that.name;
+//     };
+//   },
+// };
 
-console.log(object.getNameFunc()()); // My Object
+// console.log(object.getNameFunc()()); // My Object
+
+// 闭包的实际应用
