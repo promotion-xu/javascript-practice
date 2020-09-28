@@ -9,3 +9,43 @@
 // 2. 理解js作用域和作用域链
 // (1) 作用域就是变量访问的有效范围
 // js 全局变量作用域是全局的， 函数的参数和局部变量只在函数体内定义。局部变量优先级比全局高
+
+// 3. this的原理以及几种不同场景的使用
+// (1)函数的普通调用
+// function looseFn() {
+//     console.log(this)
+//   }
+
+//   function strictFn() {
+//     'use strict'
+//     console.log(this)
+//   }
+
+//   looseFn()  // <- window
+//   strictFn() // <- undefined
+
+// (2)函数作为对象方法调用
+// function Person(name) {
+//     this.name = name
+//     console.log(this)
+//   }
+
+//   const person = new Person('Logan')
+// <- Person {name: "Logan"}
+
+// (3)函数作为构造函数调用
+
+// var name = 'global'
+// function logName() {
+//   console.log(this.name)
+// }
+
+// logName() // <- 'global'
+// logName.call({ name: 'call' }) // <- 'call'
+// logName.apply({ name: 'apply' }) // <- 'apply'
+// // 注意bind返回一个函数，而不是直接调用
+// logName.bind({ name: 'bind' })() // <- 'bind'
+
+// (4)函数通过call、apply、bind间接调用
+
+// (5)箭头函数的调用
