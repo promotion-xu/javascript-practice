@@ -4,6 +4,6 @@
 // 2. String
 // 3. Boolean
 // 4. undefined
-// 5. null
+// 5. null, 1
 // 6. Object
 // 7. Symbol
