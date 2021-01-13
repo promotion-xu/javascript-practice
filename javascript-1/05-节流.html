@@ -9,6 +9,54 @@
     <input class="input" type="text" />
 
     <script>
+      // 节流--不管触发多少次，只执行一次。像提交按钮
+      const ipt = document.querySelector('.input')
+      
+      ipt.addEventListener('keyup', e => {
+        test(e.target.value)
+      })
+
+      const test = throttle(ajax, 2000)
+
+      function ajax(value) {
+        console.log('ajax++++++' + value)
+      }
+
+      function throttle(fn, delay) {
+        let prev = Date.now()
+        let last = 0
+        return function (arg) {
+          let now = Date.now()
+          if (now - last > delay) {
+            fn.call(this, arg)
+            last = now
+          }
+        }
+      }
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <script>
       function throttle(fn, delay) {
         let timer = null;
         let last = 0; // 记录上一次时间
@@ -32,6 +80,6 @@
       ipt.addEventListener("keyup", (e) => {
         test(e.target.value);
       });
-    </script>
+    </script> -->
   </body>
 </html>
