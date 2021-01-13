@@ -22,16 +22,34 @@ const arr = [
 const flatten = (arr) => {
   let result = [];
   fla(arr);
-  function fla(array) {
-    array.forEach((v) => {
-      result.push(v);
+  function fla(arr) {
+    arr.forEach((v) => {
       if (v.children) {
+        result.push({ name: v.name });
         fla(v.children);
+      } else {
+        result.push(v);
       }
     });
   }
   return result;
 };
 
-const result = flatten(arr);
-console.log(result);
+console.log(flatten(arr));
+
+// const flatten = (arr) => {
+//   let result = [];
+//   fla(arr);
+//   function fla(array) {
+//     array.forEach((v) => {
+//       result.push(v);
+//       if (v.children) {
+//         fla(v.children);
+//       }
+//     });
+//   }
+//   return result;
+// };
+
+// const result = flatten(arr);
+// console.log(result);
