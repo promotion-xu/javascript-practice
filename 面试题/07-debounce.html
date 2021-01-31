@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" />
+    <script>
+      // 防抖 debounce -- 事件持续触发时，最后一次触发才执行, input框要防抖
+      const ipt = document.querySelector("input");
+
+      function ajax(value) {
+        console.log(value);
+      }
+      ipt.addEventListener("keyup", function(e) {
+        test(e.target.value);
+      });
+
+      const test = debounce(ajax, 1000);
+
+      //只执行最后一次
+      function debounce(fn, time) {
+        let timer = null;
+        return function(arg) {
+          clearInterval(timer);
+          timer = setTimeout(() => {
+            fn.call(this, arg);
+          }, time);
+        };
+      }
+    </script>
+  </body>
+</html>
