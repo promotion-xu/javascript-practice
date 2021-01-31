@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" />
+
+    <script>
+      // 节流 throttle -- n 秒内执行一次
+      //
+      function ajax(value) {
+        console.log(value);
+      }
+
+      const ipt = document.querySelector("input");
+      ipt.addEventListener("keyup", function(e) {
+        test(e.target.value);
+      });
+
+      const test = throttle(ajax, 2000);
+
+      function throttle(fn, wait) {
+        let pre = 0;
+        return function() {
+          let cur = Date.now();
+          let _this = this;
+          if (cur - pre > wait) {
+            fn.apply(_this, arguments);
+            pre = cur;
+          }
+        };
+      }
+    </script>
+  </body>
+</html>
