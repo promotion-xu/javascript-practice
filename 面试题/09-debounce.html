@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text">
+
+    <script>
+        const ipt = document.querySelector('input')
+
+        // debounce 防抖
+        const test = debounce(ajax, 1000)
+
+        ipt.addEventListener('keyup', test, false)
+
+        function ajax(e) {
+            console.log(e.target.value)
+        }
+
+        function debounce(fn, time) {
+            let timer = null
+            return function () {
+                timer && clearInterval(timer)
+                timer = setTimeout(() => {
+                    fn.call(this, ...arguments)
+                }, time)
+            }
+        }
+
+    </script>
+</body>
+</html>
