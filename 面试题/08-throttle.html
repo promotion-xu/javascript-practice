@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text">
+
+    <script>
+        // throttle 节流 - n秒内触发一次
+        const test = throttle(ajax, 1000)
+        const ipt = document.querySelector('input')
+        ipt.addEventListener('keyup', test, false)
+
+        function ajax(e) {
+            console.log(e.target.value)
+        }
+    
+
+        function throttle(fn, wait) {
+            let prev = 0 // 记录上一次时间
+            return function () {
+                let now = Date.now()
+                if (now - prev > wait) {
+                    fn.call(this, ...arguments)
+                    prev = now
+                }
+                
+            }
+        }
+        
+
+    </script>
+</body>
+</html>
