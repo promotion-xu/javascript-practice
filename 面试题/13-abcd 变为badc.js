@@ -1,0 +1,3 @@
+let str = "abcd";
+
+// => 'badc'
