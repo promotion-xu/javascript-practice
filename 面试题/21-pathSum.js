@@ -21,16 +21,6 @@ let tree = {
 };
 
 // 递归遍历二叉树，同时记录路径数值，遇到叶子节点计算路径和。
-// var hasPathSum = function (root, sum) {
-//   if (!root) return false;
-//   if (!root.left && !root.right) {
-//     return sum === root.val;
-//   }
-//   return (
-//     hasPathSum(root.left, sum - root.val) ||
-//     hasPathSum(root.right, sum - root.val)
-//   );
-// };
 
 function hasPathSum(root, target) {
   if (!root) return false;
