@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text">
+    <script>
+
+        const ipt = document.querySelector('input')
+        function ajax(e) {
+            console.log(e.target.value)
+        }
+        const test = throttle(ajax, 1000)
+        ipt.addEventListener('keyup', test, false)
+
+        // throttle -- input防抖
+        function throttle(fn, delay) {
+            let timer = null
+            return function () {
+                timer && clearInterval(timer)
+                timer = setTimeout(() => {
+                    fn.call(null, ...arguments)
+                }, delay)
+            }
+        }
+
+    </script>
+</body>
+</html>
