@@ -3,9 +3,12 @@
 function Person(name, age) {
   this.name = name;
   this.age = age;
+  this.sayName = function () {
+    console.log(this.name);
+  };
 }
 
-// let p = new Person("xz", 1);
+let p = new Person("xz", 1);
 
 // console.log(p);
 
@@ -19,11 +22,17 @@ function Person(name, age) {
 
 // 实现一个new
 
-function _new(fn, ...args) {
-  let obj = Object.create(fn.prototype);
+// function _new(fn, ...args) {
+//   let obj = Object.create(fn.prototype);
 
-  const result = fn.apply(obj, args);
-  return result instanceof Object ? result : obj;
+//   const result = fn.apply(obj, args);
+//   return result instanceof Object ? result : obj;
+// }
+
+// console.log(_new(Person, "xz", 18));
+
+// 判断是不是继承来的属性
+
+function hasPrototypeProperty(object, name) {
+  return !object.hasOwnProperty(name) && name in object;
 }
-
-console.log(_new(Person, "xz", 18));
