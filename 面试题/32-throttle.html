@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text">
+
+    <script>
+        // throttle 节流 button
+        const ipt =document.querySelector('input')
+
+        function ajax(e) {
+            console.log(e.target.value)
+        }
+        const test = throttle(ajax, 1000)
+
+
+        ipt.addEventListener('keyup', test, false)
+
+        function throttle(fn, wait) {
+            let prev = 0
+            return function () {
+                let now = Date.now()
+                if (now - prev > wait) {
+                    fn.apply(null, arguments)
+                    prev = now
+                }
+            }
+        }
+    </script>
+</body>
+</html>

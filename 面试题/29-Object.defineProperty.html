@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text">
+    <div></div>
+
+    <script>
+        let obj = {
+
+        }
+        const ipt = document.querySelector('input')
+        const div = document.querySelector('div')
+    
+        ipt.addEventListener('keyup', function (e) {
+            obj.name = e.target.value        
+        }, false)
+
+
+       
+
+        Object.defineProperty(obj, 'value', {
+            get: function() {
+                return ipt.value
+            },
+            set: function (newValue) {
+
+            }
+
+        })
+
+        Object.defineProperty(obj, "name", {
+            get: function(){
+
+            },
+            set: function(name){
+                div.innerHTML = name;
+            }
+        })
+
+
+    </script>
+</body>
+</html>
