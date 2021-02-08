@@ -104,13 +104,35 @@
 // };
 // console.log(flatten(arr));
 
-function hasPathSum(root, target) {
-  if (!root) return false;
-  if (!root.left && !root.right) {
-    return target === root.val;
-  }
-  return (
-    hasPathSum(root.left, target - root.val) ||
-    hasPathSum(root.right, target - root.val)
-  );
+// function hasPathSum(root, target) {
+//   if (!root) return false;
+//   if (!root.left && !root.right) {
+//     return target === root.val;
+//   }
+//   return (
+//     hasPathSum(root.left, target - root.val) ||
+//     hasPathSum(root.right, target - root.val)
+//   );
+// }
+
+function throttle(fn, wait) {
+  let prev = 0;
+  return function() {
+    let now = Date.now();
+    if (now - prev > wait) {
+      fn.apply(null, arguments);
+      prev = now;
+    }
+  };
+}
+
+function debounce(fn, time) {
+  let timer = null;
+  return function(args) {
+    timer && clearTimeout(timer);
+    let _this = this;
+    timer = setTimeout(() => {
+      fn.apply(_this, args);
+    }, time);
+  };
 }
