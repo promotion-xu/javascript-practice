@@ -117,3 +117,26 @@
 // };
 
 // console.log(flatten(arr));
+
+// 节流
+function throttle(fn, wait) {
+  let prev = 0;
+  return function () {
+    let now = Date.now();
+    if (now - prev > delay) {
+      fn.apply(null, arguments);
+      prev = now;
+    }
+  };
+}
+
+// 防抖
+function debounce(fn, delay) {
+  let timer = null;
+  return function () {
+    timer && clearTimeout(timer);
+    setTimeout(() => {
+      fn.apply(null, arguments);
+    }, wait);
+  };
+}

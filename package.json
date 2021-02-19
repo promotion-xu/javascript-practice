@@ -19,5 +19,8 @@
   "homepage": "https://github.com/promotion-xu/javascript-practice#readme",
   "dependencies": {
     "lodash": "^4.17.19"
+  },
+  "devDependencies": {
+    "umi-plugin-bundle-compress": "^0.1.21"
   }
 }
