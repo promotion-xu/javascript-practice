@@ -113,3 +113,15 @@ function hasPathSum(root, target) {
     hasPathSum(root.right, target - root.val)
   );
 }
+
+function Person(name) {
+  this.name = name;
+}
+let p = new Person("xz");
+
+function _new(fn, ...args) {
+  let obj = Object.create(fn.prototype);
+  const result = fn.apply(obj, args);
+  return result instanceof Object ? result : obj;
+}
+console.log(_new(Person, "xz"));
