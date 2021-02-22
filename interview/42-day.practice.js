@@ -116,3 +116,9 @@ function fib(n, prev = 1, next = 1) {
   if (n <= 2) return prev;
   return fib(n - 1, next, prev + next);
 }
+
+function _new(fn, ...args) {
+  const obj = Object.create(fn.prototype);
+  const result = fn.apply(obj, args);
+  return result instanceof Object ? result : obj;
+}
