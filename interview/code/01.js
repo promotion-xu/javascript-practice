@@ -19,7 +19,7 @@
 
 // '12345'.split('')
 
-// '12345' instanceof Object
+// console.log("12345" instanceof Object);
 
 // join()  reduce forEach map filter find reverse sort indexOf slice
 
@@ -58,35 +58,39 @@
 // 捕获 - 触发 - 冒泡
 
 // js event loop
-// const promise = new Promise(resolve => {
-//   console.log("11111");
-//   setTimeout(() => {
-//     console.log("22222");
-//   }, 0);
-//   resolve();
-//   console.log("resolve");
-//   throw new Error("error");
-//   console.log("error");
-// });
-// promise
-//   .then(
-//     () => {
-//       console.log("33333");
-//       setTimeout(() => {
-//         console.log("44444");
-//       }, 0);
-//     },
-//     () => {
-//       console.log("reject");
-//     }
-//   )
-//   .catch(() => {
-//     console.log("catch");
-//   });
-// console.log("55555");
+const promise = new Promise(resolve => {
+  console.log("11111");
+  setTimeout(() => {
+    console.log("22222");
+  }, 0);
+  resolve();
+  console.log("resolve");
+  throw new Error("error");
+  console.log("error");
+});
+promise
+  .then(
+    () => {
+      console.log("33333");
+      setTimeout(() => {
+        console.log("44444");
+      }, 0);
+    },
+    () => {
+      console.log("reject");
+    }
+  )
+  .catch(() => {
+    console.log("catch");
+  });
+console.log("55555");
 
 // '11111'
 // 'resolve'
+// '55555'
+// '33333'
+// '22222'
+// '44444'
 // 'catch'
 
 // componentDidMount
