@@ -8,13 +8,30 @@
 const myPromise = require("./promise");
 
 let p = new myPromise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("成功");
-  }, 2000);
+  resolve("成功");
 });
 
 p.then(
   value => {
+    console.log(1);
+    console.log(value);
+  },
+  reason => {
+    console.log(reason);
+  }
+);
+p.then(
+  value => {
+    console.log(2);
+    console.log(value);
+  },
+  reason => {
+    console.log(reason);
+  }
+);
+p.then(
+  value => {
+    console.log(3);
     console.log(value);
   },
   reason => {

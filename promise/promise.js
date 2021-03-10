@@ -14,9 +14,9 @@ class myPromise {
   reason = undefined;
 
   // 保存后的成功回调
-  successCallback = undefined;
+  successCallback = [];
   // 保存后的失败回调
-  failCallback = undefined;
+  failCallback = [];
 
   // 箭头函数内没有this指向，所以外面调用resolve('')
   resolve = value => {
@@ -25,7 +25,8 @@ class myPromise {
     this.status = FULFILLED;
     this.value = value;
     // 如果有成功的回调
-    this.successCallback && this.successCallback(value);
+    // this.successCallback && this.successCallback(value);
+    while (this.successCallback.length) this.successCallback.shift()(value);
   };
 
   reject = reason => {
@@ -34,7 +35,8 @@ class myPromise {
     this.status = REJECTED;
     this.reason = reason;
     // 如果有失败的回调
-    this.failCallback && this.failCallback(value);
+    // this.failCallback && this.failCallback(value);
+    while (this.failCallback.length) this.failCallback.shift()(value);
   };
 
   then(successCallback, failCallback) {
@@ -43,8 +45,8 @@ class myPromise {
     } else if (this.status === REJECTED) {
       failCallback(this.reason);
     } else {
-      this.successCallback = successCallback;
-      this.failCallback = failCallback;
+      this.successCallback.push(successCallback);
+      this.failCallback.push(failCallback);
     }
   }
 }
