@@ -11,30 +11,20 @@ let p = new myPromise((resolve, reject) => {
   resolve("成功");
 });
 
+function other() {
+  return new myPromise((resolve, reject) => {
+    resolve("other");
+  });
+}
+
 p.then(
   value => {
-    console.log(1);
     console.log(value);
+    return other();
   },
   reason => {
     console.log(reason);
   }
-);
-p.then(
-  value => {
-    console.log(2);
-    console.log(value);
-  },
-  reason => {
-    console.log(reason);
-  }
-);
-p.then(
-  value => {
-    console.log(3);
-    console.log(value);
-  },
-  reason => {
-    console.log(reason);
-  }
-);
+).then(res => {
+  console.log(res);
+});

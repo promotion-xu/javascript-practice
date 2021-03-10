@@ -40,14 +40,31 @@ class myPromise {
   };
 
   then(successCallback, failCallback) {
-    if (this.status === FULFILLED) {
-      successCallback(this.value);
-    } else if (this.status === REJECTED) {
-      failCallback(this.reason);
-    } else {
-      this.successCallback.push(successCallback);
-      this.failCallback.push(failCallback);
-    }
+    let promise2 = new myPromise((resolve, reject) => {
+      if (this.status === FULFILLED) {
+        let x = successCallback(this.value);
+        // 判断x是普通值还是promise对象
+        // 1. 是普通值则直接resolve
+        // 2. 是promise对象，则判断是什么状态
+        resolvePromise(x, resolve, reject);
+      } else if (this.status === REJECTED) {
+        failCallback(this.reason);
+      } else {
+        this.successCallback.push(successCallback);
+        this.failCallback.push(failCallback);
+      }
+    });
+
+    return promise2;
+  }
+}
+
+function resolvePromise(x, resolve, reject) {
+  if (x instanceof myPromise) {
+    // 是promise对象，调用.then 要判断它的状态
+    x.then(resolve, reject);
+  } else {
+    resolve(x);
   }
 }
 
