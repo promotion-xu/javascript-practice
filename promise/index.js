@@ -8,7 +8,9 @@
 const myPromise = require("./promise");
 
 let p = new myPromise((resolve, reject) => {
-  resolve("成功");
+  setTimeout(() => {
+    resolve("成功");
+  }, 2000);
 });
 
 p.then(
