@@ -7,33 +7,18 @@
 
 const myPromise = require("./promise");
 
-let p = new myPromise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("成功 。。。。");
-  }, 2000);
-});
-
-function other() {
-  return new myPromise((resolve, reject) => {
-    resolve("other");
+const p1 = function() {
+  return new myPromise(resolve => {
+    setTimeout(() => {
+      resolve("p1");
+    }, 2000);
   });
-}
+};
 
-let p1 = p.then(
-  value => {
-    console.log(value);
-    return "aaa";
-  },
-  reason => {
-    return 10000;
-  }
-);
+const p2 = function() {
+  return new myPromise(resolve => {
+    resolve("p2");
+  });
+};
 
-p1.then(
-  value => {
-    console.log(value);
-  },
-  reason => {
-    console.log(reason.message);
-  }
-);
+myPromise.all(["a", "b", p1(), p2(), "c"]).then(result => console.log(result));

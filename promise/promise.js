@@ -44,6 +44,8 @@ class myPromise {
   };
 
   then(successCallback, failCallback) {
+    successCallback = successCallback ? successCallback : value => value;
+    failCallback = failCallback ? failCallback : reason => reason;
     let promise2 = new myPromise((resolve, reject) => {
       if (this.status === FULFILLED) {
         setTimeout(() => {
@@ -104,6 +106,29 @@ class myPromise {
     });
 
     return promise2;
+  }
+
+  static all(arr) {
+    const len = arr.length;
+    let index = 0;
+    let result = [];
+    return new myPromise((resolve, reject) => {
+      function addData(key, value) {
+        result[key] = value;
+        index++;
+        if (index === len) {
+          resolve(result);
+        }
+      }
+      for (let i = 0; i < len; i++) {
+        const current = arr[i];
+        if (current instanceof myPromise) {
+          current.then(value => addData(i, value), reason => reject(reason));
+        } else {
+          addData(i, current);
+        }
+      }
+    });
   }
 }
 
