@@ -23,4 +23,17 @@ const p2 = function() {
 
 // myPromise.all(["a", "b", p1(), p2(), "c"]).then(result => console.log(result));
 
-myPromise.resolve(p1()).then(console.log);
+// myPromise.resolve(p1()).then(console.log);
+let p = new myPromise((resolve, reject) => {
+  resolve(2);
+});
+
+p2().finally(() => {
+    console.log(1111);
+    return p1();
+}).then(value => {
+    console.log(value);
+  },reason => {
+    console.log(reason);
+  }
+);

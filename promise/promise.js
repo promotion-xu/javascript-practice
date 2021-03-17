@@ -108,6 +108,17 @@ class myPromise {
     return promise2;
   }
 
+  finally(callback) {
+    return this.then(value => {
+        // callback();
+        // return value
+        return myPromise.resolve(callback()).then(() => value)
+      }, reason => {
+        return myPromise.resolve(callback()).then(() => {throw reason})
+      }
+    );
+  }
+
   static all(arr) {
     const len = arr.length;
     let index = 0;
