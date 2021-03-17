@@ -4,7 +4,7 @@ function curry(fn) {
     if (len === args.length) {
       return fn.apply(this, args);
     }
-    return function(...args2) {
+    return function (...args2) {
       return currying.apply(this, args.concat(args2));
     };
   };
@@ -41,7 +41,6 @@ class EventEmits {
   constructor() {
     this.events = {};
   }
-
   on(eventType, fn) {
     if (this.events[eventType]) {
       this.events[eventType].push(fn);
@@ -51,7 +50,7 @@ class EventEmits {
   }
 
   emit(eventType, ...values) {
-    this.events[eventType].forEach(fn => {
+    this.events[eventType].forEach((fn) => {
       fn.apply(this, values);
     });
   }
