@@ -21,4 +21,6 @@ const p2 = function() {
   });
 };
 
-myPromise.all(["a", "b", p1(), p2(), "c"]).then(result => console.log(result));
+// myPromise.all(["a", "b", p1(), p2(), "c"]).then(result => console.log(result));
+
+myPromise.resolve(p1()).then(console.log);

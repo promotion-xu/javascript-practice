@@ -130,6 +130,11 @@ class myPromise {
       }
     });
   }
+
+  static resolve(value) {
+    if (value instanceof myPromise) return value;
+    return new myPromise(resolve => resolve(value));
+  }
 }
 
 function resolvePromise(promise2, x, resolve, reject) {
