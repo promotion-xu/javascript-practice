@@ -4,7 +4,11 @@ const REJECTED = "rejected";
 
 class myPromise {
   constructor(executor) {
-    executor(this.resolve, this.reject);
+    try {
+      executor(this.resolve, this.reject);
+    } catch (e) {
+      this.reject(e);
+    }
   }
 
   status = PENDING;
@@ -26,7 +30,7 @@ class myPromise {
     this.value = value;
     // 如果有成功的回调
     // this.successCallback && this.successCallback(value);
-    while (this.successCallback.length) this.successCallback.shift()(value);
+    while (this.successCallback.length) this.successCallback.shift()();
   };
 
   reject = reason => {
@@ -36,18 +40,123 @@ class myPromise {
     this.reason = reason;
     // 如果有失败的回调
     // this.failCallback && this.failCallback(value);
-    while (this.failCallback.length) this.failCallback.shift()(value);
+    while (this.failCallback.length) this.failCallback.shift()();
   };
 
   then(successCallback, failCallback) {
-    if (this.status === FULFILLED) {
-      successCallback(this.value);
-    } else if (this.status === REJECTED) {
-      failCallback(this.reason);
-    } else {
-      this.successCallback.push(successCallback);
-      this.failCallback.push(failCallback);
-    }
+    successCallback = successCallback ? successCallback : value => value;
+    failCallback = failCallback ? failCallback : reason => reason;
+    let promise2 = new myPromise((resolve, reject) => {
+      if (this.status === FULFILLED) {
+        setTimeout(() => {
+          // 捕捉.then回调函数的错误，有错误就在下一个.then错误回调中执行
+          try {
+            let x = successCallback(this.value);
+            // 判断x是普通值还是promise对象
+            // 1. 是普通值则直接resolve
+            // 2. 是promise对象，则判断是什么状态
+            resolvePromise(promise2, x, resolve, reject);
+          } catch (e) {
+            reject(e);
+          }
+        }, 0);
+      } else if (this.status === REJECTED) {
+        setTimeout(() => {
+          // 捕捉.then回调函数的错误，有错误就在下一个.then错误回调中执行
+          try {
+            let x = failCallback(this.reason);
+            // 判断x是普通值还是promise对象
+            // 1. 是普通值则直接resolve
+            // 2. 是promise对象，则判断是什么状态
+            resolvePromise(promise2, x, resolve, reject);
+          } catch (e) {
+            reject(e);
+          }
+        }, 0);
+      } else {
+        this.successCallback.push(() => {
+          setTimeout(() => {
+            // 捕捉.then回调函数的错误，有错误就在下一个.then错误回调中执行
+            try {
+              let x = successCallback(this.value);
+              // 判断x是普通值还是promise对象
+              // 1. 是普通值则直接resolve
+              // 2. 是promise对象，则判断是什么状态
+              resolvePromise(promise2, x, resolve, reject);
+            } catch (e) {
+              reject(e);
+            }
+          }, 0);
+        });
+        this.failCallback.push(() => {
+          setTimeout(() => {
+            // 捕捉.then回调函数的错误，有错误就在下一个.then错误回调中执行
+            try {
+              let x = failCallback(this.reason);
+              // 判断x是普通值还是promise对象
+              // 1. 是普通值则直接resolve
+              // 2. 是promise对象，则判断是什么状态
+              resolvePromise(promise2, x, resolve, reject);
+            } catch (e) {
+              reject(e);
+            }
+          }, 0);
+        });
+      }
+    });
+
+    return promise2;
+  }
+
+  finally(callback) {
+    return this.then(value => {
+        // callback();
+        // return value
+        return myPromise.resolve(callback()).then(() => value)
+      }, reason => {
+        return myPromise.resolve(callback()).then(() => {throw reason})
+      }
+    );
+  }
+
+  static all(arr) {
+    const len = arr.length;
+    let index = 0;
+    let result = [];
+    return new myPromise((resolve, reject) => {
+      function addData(key, value) {
+        result[key] = value;
+        index++;
+        if (index === len) {
+          resolve(result);
+        }
+      }
+      for (let i = 0; i < len; i++) {
+        const current = arr[i];
+        if (current instanceof myPromise) {
+          current.then(value => addData(i, value), reason => reject(reason));
+        } else {
+          addData(i, current);
+        }
+      }
+    });
+  }
+
+  static resolve(value) {
+    if (value instanceof myPromise) return value;
+    return new myPromise(resolve => resolve(value));
+  }
+}
+
+function resolvePromise(promise2, x, resolve, reject) {
+  if (promise2 === x) {
+    return reject(new TypeError("not me"));
+  }
+  if (x instanceof myPromise) {
+    // 是promise对象，调用.then 要判断它的状态
+    x.then(resolve, reject);
+  } else {
+    resolve(x);
   }
 }
 
