@@ -12,17 +12,19 @@
 
 function twoSum(nums, target) {
   let length = nums.length
-  const MAP = new Map()
+  const MAP = new Map() 
+  // { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4 }
   MAP.set(nums[0], 0)
   for (let i = 1; i < length; i ++) {
-    let other = target - nums[i]
+    let other = target - nums[i] // 6, 5, 4, 3, 2
     if (MAP.get(other) !== undefined) return [MAP.get(other), i]
     MAP.set(nums[i], i)
   }
+  return []
 }
 
 
-let arr = [1, 2, 3, 4, 5];
+let arr = [1, 1, 3, 3, 5];
 
 let target = 7;
 
