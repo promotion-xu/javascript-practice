@@ -1,3 +1,6 @@
+// { a: [{ b: 2 }] } { a: [{ c: 2 }]} -> { a: [{b:2}, {c:2}]}
+// merge({o: {a: 3}}, {o: {b:4}}) => {o: {a:3, b:4}}
+
 function isObject(value: any): value is object {
   return Object.prototype.toString.call(value) === "[object Object]";
 }

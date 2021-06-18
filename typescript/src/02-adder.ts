@@ -16,3 +16,4 @@ function setGoodIndex(this: any, index: number) {
 //   goodIndex = index;
 // }
 setGoodIndex(2);
+setGoodIndex(2);

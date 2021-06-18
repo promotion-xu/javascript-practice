@@ -3,3 +3,5 @@ function helloWorld(word: string): void {
 }
 
 helloWorld("world");
+helloWorld("world");
+helloWorld("world");
