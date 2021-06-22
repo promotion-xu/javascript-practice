@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "es5",
     "watch": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "strictNullChecks": true
   },
   "include": ["./src/**/*"]
 }
