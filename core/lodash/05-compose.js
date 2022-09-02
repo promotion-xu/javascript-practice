@@ -1,13 +1,5 @@
 
 
-// function compose(...fns) {
-//   return fns.reduce((f, g) => {
-//     return (...args) => {
-//       return f(g(...args))
-//     }
-//   })
-// }
-
 // 从左向右计算
 const composeLeft = (...fns) => fns.reduce((f,g) => (...args) => g(f(...args)))
 

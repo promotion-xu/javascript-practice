@@ -14,36 +14,36 @@
 // console.log(fib(100))
 
 
-// let fib = (function () {
-//     let memo = new Map()
-//     return function(n) {
-//         const memorized = memo.get(n)
-//         if (memorized) return memorized
-//         if (n <= 2) return 1
-//         let f1 = fib(n - 1)
-//         let f2 = fib(n - 2)
-//         memo.set(n-1, f1)
-//         memo.set(n-2, f2)
-//         return f1 + f2
-//     }
-// })()
+let fib = (function () {
+    let memo = new Map()
+    return function(n) {
+        const memorized = memo.get(n)
+        if (memorized) return memorized
+        if (n <= 2) return 1
+        let f1 = fib(n - 1)
+        let f2 = fib(n - 2)
+        memo.set(n-1, f1)
+        memo.set(n-2, f2)
+        return f1 + f2
+    }
+})()
 
-// console.log(fib(50))
+console.log(fib(50))
 
 
 
 // 将数值保存在dp数组里
-// function fib(n) {
-//     let dp = []
-//     dp[0] = 0
-//     dp[1] = 1
-//     dp[2] = 1
+function fib(n) {
+    let dp = []
+    dp[0] = 0
+    dp[1] = 1
+    dp[2] = 1
 
-//     for (let i = 3; i <= n; i ++) {
-//         dp[i] = dp[i-1] + dp[i-2]
-//     }
-//     return dp[n]
-// }
+    for (let i = 3; i <= n; i ++) {
+        dp[i] = dp[i-1] + dp[i-2]
+    }
+    return dp[n]
+}
 
 // console.log(fib(1000))
 
