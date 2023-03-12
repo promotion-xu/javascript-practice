@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text">
+
+
+  <script>
+    const ipt = document.querySelector('input');
+    const debouncedInput = debounce(function (e, a) {
+      console.log('-----e', e, a)
+    }, 1500);
+
+    ipt.addEventListener('input', e => debouncedInput(e, 'aaaa'))
+
+    function debounce(fn, delay) {
+      let timerId = null;
+      return function(...args) {
+        if (timerId) clearTimeout(timerId)
+        timerId = setTimeout(() => {
+          console.log('args', args)
+          fn.apply(this, args)
+        }, delay)
+      }
+    }
+
+
+
+  </script>
+</body>
+</html>
