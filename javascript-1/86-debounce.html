@@ -23,7 +23,6 @@
       return function(...args) {
         if (timerId) clearTimeout(timerId)
         timerId = setTimeout(() => {
-          console.log('args', args)
           fn.apply(this, args)
         }, delay)
       }
